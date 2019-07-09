@@ -1,0 +1,31 @@
+def clear(pos_line,start_pos,end_pos):
+	for d_line in pos_line.split(';'):
+		d_sp = d_line.split('*')
+		if len(d_sp) > 3:
+			pos = int(d_line.split('*')[4].split('_')[1])
+			vt = d_line.split('*')[4].split('_')[2]
+			#print f_sp[0], d_line.split('*')[4].split('_')[1], f_sp[36],f_sp[37]
+			pos_range = [int(x) for x in range(int(start_pos),int(end_pos)+1)]
+			if pos in pos_range:
+				if len(f_sp[0]) >= pos:
+					if vt == f_sp[0][pos-1]:
+						a =  '\t'.join([ f_sp[x] for x in [0,33,34,36,37,40,41,42,43,50,51]])
+						#a = '\t'.join([f_sp[0], d_line.split('*')[4],vt,f_sp[36],f_sp[37]])
+						return(a)	
+
+header = ['Sequence','Mass','Proteins','Start position','End position','Charges','PEP','Score','Intensity','MS/MS IDs','Best MS/MS']
+re_f = open('/mnt/md0/Storage/adios/tmp/SAAV_extract_Test6_T(cle0)_Proteogenomics fasta files_missed0_FDR100_peptides.txt','w')
+re_f.write('\t'.join(header) + '\n')
+
+tmp = []
+in_f = open('/home/starjjbang/Storage/code/part1/2019/test.txt')
+for f_line in in_f.xreadlines():
+	f_sp = f_line.strip().split('\t')
+	#print f_sp[0], f_sp[36]
+	q_re = clear(f_sp[34],f_sp[36],f_sp[37])
+	if q_re is not None:
+		re_f.write(q_re + '\n')
+		tmp.append(q_re)
+	
+print len(tmp)
+re_f.close()
