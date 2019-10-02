@@ -1,0 +1,31 @@
+def dta_parsing(input_file):
+    F = open(input_file, 'r')
+    tmp = ''
+    for F_line in F .xreadlines():
+        if F_line.startswith('sp|'):
+            tmp = tmp + F_line.strip()
+        elif F_line.startswith('	'):
+            tmp = tmp +'$' + F_line.strip()
+        elif F_line.startswith('*	'):
+            tmp = tmp + F_line.strip().replace('*	','$')
+
+    re_tmp = []
+    for t_line in tmp.split('sp|'):
+        ENSP = ""
+        for t1_line in t_line.split('$'):
+            if t1_line.startswith('ENSP'):
+                t1_sp = t1_line.strip().split('\t')
+                ENSP = t1_sp[0].split('|')[0]
+            
+            else:
+                if len(t1_line.split('\t'))> 12:
+                    seq_line =  t1_line.split('\t')
+                    cal_seq =  t1_line.split('\t')[13].replace('(15.995)','').split('.')[1]
+                    a =  '\t'.join([ENSP] +  seq_line[0:13]  +[cal_seq] + seq_line[14:])
+                    re_tmp.append(a)
+    return(re_tmp)
+
+f_dir = 'C:/Users/user/Desktop/result/2_HeLa_Canpro_IP2/search_result/C_0502_HeLa_set01.txt'                   
+for r_line in dta_parsing(f_dir):
+    print r_line
+    
