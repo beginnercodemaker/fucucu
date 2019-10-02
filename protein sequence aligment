@@ -1,0 +1,5 @@
+with open('C:/Users/user/Desktop/LTFViewr/testpeptides.txt', 'r') as content_file:
+    content = content_file.read()
+    s =  content.replace('\n','')
+    s2 = 'ADIDVSGPSVDTDAPDLDIEGPEGR'
+    print s.find(s2) + 1, s.find(s2) + len(s2)
