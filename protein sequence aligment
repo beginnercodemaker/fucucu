@@ -3,3 +3,9 @@ with open('C:/Users/user/Desktop/LTFViewr/testpeptides.txt', 'r') as content_fil
     s =  content.replace('\n','')
     s2 = 'ADIDVSGPSVDTDAPDLDIEGPEGR'
     print s.find(s2) + 1, s.find(s2) + len(s2)
+
+
+aString = dra[ad_sp[5]]
+x = list((a.start()+1, a.end()) for a in list(re.finditer(ad_sp[8], aString)))
+pos = ','.join(['_'.join(list([str(f) for f in a])) for a in x])
+print ad_sp, [pos]
